@@ -1,0 +1,16 @@
+@import "_variables.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+nav {
+
+    background-color: var(--globalColor);
+    color: aqua;
+}
+
+a {
+    @apply text-white;
+    color: var(--globalColor);
+}
