@@ -14,8 +14,6 @@ export default defineEventHandler((event) => {
     const query = getQuery(event);
     const page = Number(query.page) || 1;
     const size = Number(query.size) || 2;
-
-
     const fileNames = fs.readdirSync(postsDirectory); //作用是读取文件夹下的所有文件名
     const posts = fileNames.map((fileName: any) => {
         //文件名

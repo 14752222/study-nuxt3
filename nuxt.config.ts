@@ -4,5 +4,11 @@ export default defineNuxtConfig({
     modules: [
         "@nuxtjs/tailwindcss",
         '@huntersofbook/naive-ui-nuxt',
+        ["@pinia/nuxt", {
+            autoImports: [
+                'defineStore',
+                'storeToRefs',
+            ],
+        }],
     ]
 })
