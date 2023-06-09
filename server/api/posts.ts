@@ -11,6 +11,11 @@ interface Post {
 const postsDirectory = path.join(process.cwd(), 'content'); //作用是将多个路径拼接为一个路径
 
 export default defineEventHandler((event) => {
+    const query = getQuery(event);
+    const page = Number(query.page) || 1;
+    const size = Number(query.size) || 2;
+
+
     const fileNames = fs.readdirSync(postsDirectory); //作用是读取文件夹下的所有文件名
     const posts = fileNames.map((fileName: any) => {
         //文件名
@@ -24,6 +29,11 @@ export default defineEventHandler((event) => {
             date: fileInfo.ctime,
         };
     })
-    console.log(posts)
-    return posts.sort((a:Post, b:Post) => a.date < b.date ? 1 : -1)
+
+    const start = (page - 1) * size;
+    const end = page * size;
+
+    return posts
+        .sort((a:Post, b:Post) => a.id > b.id ? 1 : -1)
+        .slice(start, end);
 })
