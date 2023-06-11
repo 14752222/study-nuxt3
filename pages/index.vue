@@ -53,7 +53,7 @@ function prevPage() {
     page.value--
     refresh()
 }
-</script>
+ </script>
 
 <style scoped>
 a {

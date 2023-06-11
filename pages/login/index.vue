@@ -31,7 +31,6 @@ const route = useRoute()
 
 const login = async () => {
     isLogin.value = true
-    console.log(router)
     router.push(route.query.callback as string)
 }
 
