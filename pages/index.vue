@@ -36,6 +36,17 @@
     <nuxt-link to="/detail-1">detail 1</nuxt-link>
 </template>
 <script setup lang="ts">
+useHead({
+    title: 'index page',
+    meta: [
+        {
+            name: 'description',
+            content: 'index page description'
+        }
+    ]
+})
+
+
 const {message} = await $fetch('/api')
 // const posts = await $fetch('/api/posts')
 // const {message: msg} = await $fetch('/api/test')

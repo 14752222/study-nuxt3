@@ -22,8 +22,14 @@
 import {useLogin} from "~/store/login";
 
 const route = useRoute()
+
+
 console.log(route.params.id)
 const {title, content} = await $fetch(`/api/detail/${route.params.id}`)
+
+useHead({
+    title:title,
+})
 const fethPost = async () => {
     const {title, content} = await $fetch(`/api/detail/${route.params.id}`)
     console.log(title, content)
