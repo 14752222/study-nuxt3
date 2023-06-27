@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  mysql_db_container:
+    image: mysql:latest
+    # command 作用是设置mysql的密码加密方式，否则会报错
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # root账号密码
+    ports:
+      - 3336:3306
+    volumes:
+      - mysql_db_data_container:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+  adminer_container:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+    ports:
+      - 8877:8080
+  nuxt_app_container:
+    container_name: nuxt_app
+    build:
+      context: .
+      args:
+        - "-y"
+    ports:
+      - "8088:3000"
+    environment:
+      DATABASE_URL: mysql://root:rootpassword@mysql_db_container:3306/study
+      NUXT_BASE_URL: https://jsonplaceholder.typicode.com
+      JWT_SECRET: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMzY0OTUyODI3IiwibmFtZSI6Inp6bCIsImlhdCI6MTUxNjIzOTAyMn0.DLeFdfkuB1Cost3d6Bx2xB3QglDC2wkNQDjA3fTbxlc
+    command: > 
+      /bin/sh -c "yarn migrate && yarn build && yarn start"
+
+    depends_on:
+      mysql_db_container:
+        condition: service_healthy
+volumes:
+  mysql_db_data_container:

@@ -1,10 +1,14 @@
 <template>
-  <div>
-<!--    <NuxtWelcome />-->
-    <NuxtLayout>
-        <NuxtPage />
-    </NuxtLayout>
-  </div>
+    <div>
+        <!--    <NuxtWelcome />-->
+        <NDialogProvider>
+            <NMessageProvider>
+                <NuxtLayout>
+                    <NuxtPage />
+                </NuxtLayout>
+            </NMessageProvider>
+        </NDialogProvider>
+    </div>
 </template>
 <script setup lang="ts">
 </script>
