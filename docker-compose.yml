@@ -23,6 +23,7 @@ services:
       - 8877:8080
   nuxt_app_container:
     container_name: nuxt_app
+    restart: always
     build:
       context: .
       args:
@@ -35,7 +36,6 @@ services:
       JWT_SECRET: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMzY0OTUyODI3IiwibmFtZSI6Inp6bCIsImlhdCI6MTUxNjIzOTAyMn0.DLeFdfkuB1Cost3d6Bx2xB3QglDC2wkNQDjA3fTbxlc
     command: > 
       /bin/sh -c "yarn migrate && yarn build && yarn start"
-
     depends_on:
       mysql_db_container:
         condition: service_healthy
